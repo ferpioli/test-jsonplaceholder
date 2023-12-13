@@ -5,7 +5,7 @@ Bem-vindo! Este projeto realiza testes automatizados na API https://jsonplacehol
 
 Foi Criado uma collection no Postman passando dados Randomicos, realizando todas as chamadas POST e GET da API do [{JSON} PlaceHolder](https://jsonplaceholder.typicode.com/) , Nos testes realizados busquei o aproveitamento do codigo colocando na ```Folder``` de cada suite dados que podem ser reaproveitados nos testes da mesma.
 
-Realizei uma abordagem com teste de contrato ```Schema``` Ultizando ```TV4``` onde é possivel em uma unica estrutura validar tipo de dado, formato do dado e obrigatoriedade em contrato. Foram encontrados 2 tipos de contrato para estas requisições a mesma tras a estrura  de ```Array de objetos``` para multiplos resultados e ```objeto``` para resultados unicos.
+Foi Realizado uma abordagem teste com testes de contrato ```Schema``` Ultizando ```TV4``` onde é possivel em uma unica estrutura validar tipo de dado, formato do dado e obrigatoriedade em contrato. Foram encontrados 2 tipos de contrato para estas requisições com a estrutura de ```Array de objetos``` para multiplos resultados e ```objeto``` para resultados unicos.
 
 Foi Realizado tambem a validação da inserção de registro realizando um  ```SendRequest``` que faz um GET por id apos um POST ser executado.
 
