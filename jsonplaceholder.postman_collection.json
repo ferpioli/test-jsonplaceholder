@@ -1,0 +1,1083 @@
+{
+	"info": {
+		"_postman_id": "cdf9ddc2-57d4-4b13-bf5c-454ae93e7b3b",
+		"name": "jsonplaceholder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "772478"
+	},
+	"item": [
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    });\r",
+									"\r",
+									"// Validation using the schema.\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectPosts\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"    });\r",
+									"\r",
+									"\r",
+									"// Make a GET request to validate the success of the POST.\r",
+									"    const url = pm.environment.get(\"url\");\r",
+									"    const id = pm.environment.get(\"id\");\r",
+									"\r",
+									"pm.sendRequest(url+\"/posts/\"+id, function (err, response) {\r",
+									"    const resp = pm.response.json();\r",
+									"    pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"    pm.expect(resp.userId).to.eql(id);\r",
+									"\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"{{$randomLoremWords}}\", \"body\": \"{{$randomLoremParagraph}}\", \"userId\": {{id}}}"
+						},
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaArrayPosts\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectPosts\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Validate Id\r",
+									"pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"    pm.expect(response.id).to.eql(pm.variables.get(\"id\"));\r",
+									"\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/{PostId}/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaArrayPosts\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if postId is valid for all objects\", function () {\r",
+									"     const expectedPostId = pm.variables.get(\"id\");\r",
+									"      response.forEach(function (object) {\r",
+									"         pm.expect(object.postId).to.eql(expectedPostId);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/{{id}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"{{id}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/comments?postId={id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaArrayPosts\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if postId is valid for all objects\", function () {\r",
+									"     const expectedPostId = pm.variables.get(\"id\");\r",
+									"      response.forEach(function (object) {\r",
+									"         pm.expect(object.postId).to.eql(expectedPostId);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/comments?postId={{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Posts:\n\n- Get all posts: GET /posts\n    \n- Get a specific post: GET /posts/{id}\n    \n- Create a new post: POST /postsEndFragment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Contract for an array of objects",
+							"const schemaArrayPosts = {",
+							"    \"type\": \"array\",",
+							"    \"properties\": {",
+							"        \"userId\": { \"type\": \"integer\" },",
+							"        \"id\": { \"type\": \"integer\" },",
+							"        \"title\": { \"type\": \"string\" },",
+							"        \"body\": { \"type\": \"string\" },",
+							"    },",
+							"    \"required\": [\"userId\",\"id\",\"title\",\"body\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaArrayPosts\", schemaArrayPosts);",
+							"",
+							"// Contract for a single object",
+							"const schemaObjectPosts = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"userId\": { \"type\": \"integer\" },",
+							"        \"id\": { \"type\": \"integer\" },",
+							"        \"title\": { \"type\": \"string\" },",
+							"        \"body\": { \"type\": \"string\" },",
+							"    },",
+							"    \"required\": [\"userId\",\"id\",\"title\",\"body\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaObjectPosts\", schemaObjectPosts);"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test('Status code is 201', function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectComments\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Make a GET request to validate the success of the POST.\r",
+									"    const url = pm.environment.get(\"url\");\r",
+									"    const id = pm.environment.get(\"id\");\r",
+									"\r",
+									"pm.sendRequest(url+\"/comments/\"+id, function (err, response) {\r",
+									"    const resp = pm.response.json();\r",
+									"    pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"    pm.expect(resp.postId).to.eql(id);\r",
+									"\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"postId\": {{id}} , \"name\": \"{{$randomLoremWords}}\", \"email\": \"{{$randomEmail}}\", \"body\": \"{{$randomLoremParagraph}}\"}"
+						},
+						"url": {
+							"raw": "{{url}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaArrayComments\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/comments/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectComments\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Validate Id\r",
+									"pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"    pm.expect(response.id).to.eql(pm.variables.get(\"id\"));\r",
+									"\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/comments/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Comments:\n\n- Get all comments for a post: GET /posts/{id}/comments\n    \n- Get a specific comment: GET /comments/{id}\n    \n- Create a new comment: POST /commentsEndFragment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Contract for an array of objects",
+							"const schemaArrayComments = {",
+							"    \"type\": \"array\",",
+							"  \"properties\": {",
+							"    \"postId\": { \"type\": \"integer\" },",
+							"    \"name\": { \"type\": \"string\" },",
+							"    \"email\": { \"type\": \"string\", \"format\": \"email\" },",
+							"    \"body\": { \"type\": \"string\" },",
+							"    \"id\": { \"type\": \"integer\" }",
+							"  },",
+							"  \"required\": [\"postId\", \"name\", \"email\", \"body\", \"id\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaArrayComments\", schemaArrayComments );",
+							"",
+							"// Contract for a single object",
+							"const schemaObjectsComments = {",
+							"    \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"postId\": { \"type\": \"integer\" },",
+							"    \"name\": { \"type\": \"string\" },",
+							"    \"email\": { \"type\": \"string\", \"format\": \"email\" },",
+							"    \"body\": { \"type\": \"string\" },",
+							"    \"id\": { \"type\": \"integer\" }",
+							"  },",
+							"  \"required\": [\"postId\", \"name\", \"email\", \"body\", \"id\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaObjectComments\", schemaObjectsComments );"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectUsers\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"{{$randomFirstName}}\", \"username\": \"{{$randomUserName}}\", \"email\": \"{{$randomEmail}}\"}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaArrayUsers\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectUsers\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Validate Id\r",
+									"pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"       pm.expect(response.id).to.eql(pm.variables.get(\"id\"));\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Users:\n\n- Get all users: GET /users\n    \n- Get a specific user: GET /users/{id}\n    \n- Create a new user: POST /usersEndFragment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Gera um número aleatório entre 1 e 10",
+							"var numeroAleatorio = Math.floor(Math.random() * (10 - 1 + 1)) + 1;",
+							"",
+							"// Define a variável no ambiente para uso posterior, se necessário",
+							"pm.environment.set('id', numeroAleatorio);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Contract for an array of objects",
+							"const schemaArrayUsers = {",
+							"    \"type\": \"array\",",
+							"    \"properties\": {",
+							"        \"name\": { \"type\": \"string\" },",
+							"        \"username\": { \"type\": \"string\" },",
+							"        \"email\": { \"type\": \"string\", \"format\": \"email\" },",
+							"        \"id\": { \"type\": \"integer\" }",
+							"    },",
+							"    \"required\": [\"name\", \"username\", \"email\", \"id\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaArrayUsers\", schemaArrayUsers );",
+							"",
+							"",
+							"// Contract for a single object",
+							"const schemaObjectUsers = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"name\": { \"type\": \"string\" },",
+							"        \"username\": { \"type\": \"string\" },",
+							"        \"email\": { \"type\": \"string\", \"format\": \"email\" },",
+							"        \"id\": { \"type\": \"integer\" }",
+							"    },",
+							"    \"required\": [\"name\", \"username\", \"email\", \"id\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaObjectUsers\", schemaObjectUsers );"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "albums",
+			"item": [
+				{
+					"name": "/albums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectAlbums\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Make a GET request to validate the success of the POST.\r",
+									"    const url = pm.environment.get(\"url\");\r",
+									"    const id = pm.environment.get(\"id\");\r",
+									"\r",
+									"pm.sendRequest(url+\"/albums/\"+id, function (err, response) {\r",
+									"    const resp = pm.response.json();\r",
+									"    pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"    pm.expect(resp.userId).to.eql(id);\r",
+									"\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{id}}, \"title\": \"{{$randomLoremWords}}\"}"
+						},
+						"url": {
+							"raw": "{{url}}/albums",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/albums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaArrayAlbums\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\": 1, \"title\": \"Novo Álbum\"}"
+						},
+						"url": {
+							"raw": "{{url}}/albums",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/albums/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Validation using the schema\r",
+									"pm.test(\"Validate response contract\", function () {\r",
+									"    const schema = pm.globals.get(\"schemaObjectAlbums\");\r",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Validate Id\r",
+									"pm.test(\"The searched ID is indeed returned\", function () {\r",
+									"    pm.expect(response.id).to.eql(pm.variables.get(\"id\"));\r",
+									"\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the \"Content-Type\" header is present\r",
+									"pm.test(\"Content-Type header is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"// Test to verify if the value of the \"Content-Type\" header is \"application/json; charset=utf-8\"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\": 1, \"title\": \"Novo Álbum\"}"
+						},
+						"url": {
+							"raw": "{{url}}/albums/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Albums:\n\n- Get all albums: GET /albums\n    \n- Get a specific user: GET /albums/{id}\n    \n- Create a new user: POST /albumsEndFragment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// Contract for an array of objects",
+							"const schemaArrayAlbums = {",
+							"    \"type\": \"array\",",
+							"    \"properties\": {",
+							"        \"userId\": { \"type\": \"integer\" },",
+							"        \"title\": { \"type\": \"string\" },",
+							"        \"id\": { \"type\": \"integer\" }",
+							"    },",
+							"    \"required\": [\"userId\", \"title\", \"id\"]",
+							"};",
+							"",
+							"",
+							"pm.globals.set(\"schemaArrayAlbums\", schemaArrayAlbums );",
+							"",
+							"// Contract for a single object",
+							"const schemaObjectAlbums = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"userId\": { \"type\": \"integer\" },",
+							"        \"title\": { \"type\": \"string\" },",
+							"        \"id\": { \"type\": \"integer\" }",
+							"    },",
+							"    \"required\": [\"userId\", \"title\", \"id\"]",
+							"};",
+							"",
+							"pm.globals.set(\"schemaObjectAlbums\", schemaObjectAlbums );"
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Gera um número aleatório entre 1 e 100",
+					"var numeroAleatorio = Math.floor(Math.random() * (100 - 1 + 1)) + 1;",
+					"",
+					"// Define a variável no ambiente para uso posterior, se necessário",
+					"pm.environment.set('id', numeroAleatorio);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
