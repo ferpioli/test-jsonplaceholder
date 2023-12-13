@@ -243,6 +243,47 @@
 					"response": []
 				},
 				{
+					"name": "/posts/{Uid}/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Verifies if the response body is an empty array\r",
+									"pm.test(\"Check if the response body is an empty array\", function () {\r",
+									"    // Parse the response body as JSON\r",
+									"    const responseBody = pm.response.json();\r",
+									"\r",
+									"    // Use Postman's expect function to check if the response body is an empty array\r",
+									"    pm.expect(responseBody).to.be.an('array').that.is.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/{{$guid}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"{{$guid}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/comments?postId={id}",
 					"event": [
 						{
@@ -752,6 +793,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/users/{id} -Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"// Checks if the response body is an empty object\r",
+									"pm.test(\"Response body should be an empty object\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"\r",
+									"    \r",
+									"// Checks if the response body is an object\r",
+									"    pm.expect(responseBody).to.be.an('object');\r",
+									"\r",
+									" \r",
+									"// Checks if the object is empty  \r",
+									"    pm.expect(responseBody).to.eql({});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{$guid}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{$guid}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Users:\n\n- Get all users: GET /users\n    \n- Get a specific user: GET /users/{id}\n    \n- Create a new user: POST /usersEndFragment",
@@ -866,6 +951,45 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\"userId\":{{id}}, \"title\": \"{{$randomLoremWords}}\"}"
+						},
+						"url": {
+							"raw": "{{url}}/albums",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/albums  -Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{$guid}}, \"title\": \"\"}"
 						},
 						"url": {
 							"raw": "{{url}}/albums",
@@ -1001,6 +1125,63 @@
 							"path": [
 								"albums",
 								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/albums/{id} - Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"// Checks if the response body is an empty object\r",
+									"pm.test(\"Response body should be an empty object\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"\r",
+									"    \r",
+									"// Checks if the response body is an object\r",
+									"    pm.expect(responseBody).to.be.an('object');\r",
+									"\r",
+									" \r",
+									"// Checks if the object is empty  \r",
+									"    pm.expect(responseBody).to.eql({});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\": 1, \"title\": \"Novo Álbum\"}"
+						},
+						"url": {
+							"raw": "{{url}}/albums/{{$guid}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums",
+								"{{$guid}}"
 							]
 						}
 					},
