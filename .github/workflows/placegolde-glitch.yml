@@ -1,0 +1,36 @@
+name: Newman Test - Gitch
+
+on:
+  
+    schedule: 
+    - cron: '0 */3 * * 1-5'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+    
+    - name: Install newman 
+      run: npm install -g newman    
+
+    - name: Install htmlextra
+      run: npm install -g newman-reporter-htmlextra
+
+    - name: Run Newman Tests
+      run: newman run jsonplaceholder.postman_collection.json -e envglitch.postman_environment.json --reporters='cli,htmlextra'
+    
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      if: always()  
+      with:
+        name: Report
+        path: newman/*.html
+        retention-days: 30 
