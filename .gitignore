@@ -1,0 +1,9 @@
+# Node.js
+node_modules/
+
+# Newman
+newman/
+
+# Arquivos temporários ou de sistema
+.DS_Store
+Thumbs.db
