@@ -1,3 +1,6 @@
+ 
+[![Newman Test - Gitch](https://github.com/ferpioli/test-jsonplaceholder/actions/workflows/placegolde-glitch.yml/badge.svg)](https://github.com/ferpioli/test-jsonplaceholder/actions/workflows/placegolde-glitch.yml)
+
 # QA Automation Challenge
 
 
@@ -18,6 +21,7 @@ newman run jsonplaceholder.postman_collection.json -e envcase.postman_environmen
  ```
 
 ---
+
 
 # Continuous Testing and Observability  ![New Relic logo](https://newrelic.com/static-assets/images/icons/avatar-newrelic.png)
 
